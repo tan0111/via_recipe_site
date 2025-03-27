@@ -1,0 +1,26 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "recipe",
+  "main": "js.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tan0111/via_recipe_site.git"
+  },
+  "author": "Fatima Tangatarova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tan0111/via_recipe_site/issues"
+  },
+  "homepage": "https://github.com/tan0111/via_recipe_site#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "less": "^4.2.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

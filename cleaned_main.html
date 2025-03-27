@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The official home of all things Tasty, the world’s largest food network. Search, watch, and cook every single Tasty recipe and video ever - all in one place!">
+    <link rel="stylesheet" href="newcss.css">
+    <title>Tasty - Food videos and recipes</title>
+</head>
+<body class="flex flex-column">
+
+
+    <header class="nav">
+        <nav class="nav-menu">
+            <div class="logo-container">
+                <a class="logo" href="cleaned_main.html" > <img src="../../images/logo_tasty.png" alt="Tasty Logo" height="10%" width="10%"></a>
+            </div>
+            
+            <ul class="nav__primary-menu list-unstyled">
+                <li class="nav__primary-menu-item list-unstyled">
+                    <button class="nav__primary-menu-button button--clear" value="">
+                        <span class="nav__primary-menu-button-text">Recipes</span>
+                        <!-- onclick="toggleSubmenu()"  -->
+                    </button>
+
+                    <button class="nav__primary-menu-button button--clear" value="">
+                        <a class="nav__submenu-item" href="own_recipe.html">Your own recipes</a>
+                    </button>
+
+                    
+                    <div id="recipes-submenu" class="nav__desktop-submenu">
+                        <div class="nav__desktop-submenu-content">
+                            <div class="nav__submenu-close-button--wrapper xs-flex-order-2">
+                                <button aria-label="Close submenu" class="nav__submenu-close-button">
+                                    
+                                    <span class="screenreader-only">Close</span>
+                                </button>
+                            </div>
+                            <h2 id="recipes-heading" class="screenreader-only">Recipes Submenu</h2>
+                            <section class="nav__submenu-category-wrapper">
+                                <div class="submenu-column">
+                                    <h4 class="nav__submenu-category-heading">Popular</h4>
+                                    <ul class="nav__submenu-category">
+                                        <li class="list-unstyled">
+                                            <a class="nav__submenu-item" href="easy_dinners.html">Easy Dinners</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="submenu-column">
+                                    <h4 class="nav__submenu-category-heading">Do you want to Submit Your Recipe?</h4>
+                                    <ul class="nav__submenu-category">
+                                        <li class="list-unstyled">
+                                            <a class="nav__submenu-item" href="submit_recipe.html">Submit</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </section>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="menu-search">
+                <form class="search-form" id="search-form">
+                    <label for="search-input" class="screenreader-only">Search for recipes</label>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search Tasty">
+                    <button class="clear-search" type="button"></button>
+                </form>
+            </div>
+        </nav>
+    </header> 
+
+
+
+    
+    <main class="content-container">
+        <div class="featured-recipe">
+            <h2>What We're Cooking</h2>
+            <p class="recipe-name">Holiday Cheese Trees</p>
+            <div class="background">
+                <img class="desk_back" src="../../images/asset.svg" alt="Decorative background">
+            </div>                
+            <div class="recipe-img">
+                <img src="../../images/508305_002.webp" alt="Holiday Cheese Trees" style="width: 100%; max-width: 400px; height: auto;">
+            </div>
+        </div>
+        <div class="featured-recipe">
+            <h2>What We Cooked Last Week</h2>
+            <p class="recipe-name">Burger with melted cheese</p>
+            <div class="background">
+                <img class="desk_back" src="../../images/asset.svg" alt="Decorative background">
+            </div>                
+            <div class="recipe-img">
+                <img src="../../images/burger.jpg" alt="Burger with melted cheese" style="width: 100%; max-width: 400px; height: auto;">
+            </div>
+        </div>
+        
+
+
+    </main>
+
+    <footer class="footer xs-z4 xs-mt4">
+        <div class="footer__content md-flex">
+            <div class="footer__social-icons">
+                <h4>Follow Tasty</h4>
+                <a href="https://www.facebook.com/buzzfeedtasty" aria-label="Facebook">
+                    <img src="../../images/fac.png" alt="Facebook Icon">
+                </a>
+                <a href="https://www.instagram.com/buzzfeedtasty/" aria-label="Instagram">
+                    <img src="../../images/ins.png" alt="Instagram Icon">
+                </a>
+                <a href="https://www.youtube.com/c/buzzfeedtasty" aria-label="YouTube">
+                    <img src="../../images/yout.png" alt="YouTube Icon">
+                </a>
+            </div>
+
+            <div class="footer__column ">
+                <img src="../../images/logo_tasty.png" alt="Tasty Logo Footer" class="footer__logo">
+            </div>
+            
+
+
+            <form class="newsletter__form newsletter__form--inline" id="newsletter-inline" target="_top">
+                <h2 class="newsletter__header newsletter__header--inline xs-mb1 xs-text-3 extra-bold">Get the Tasty Newsletter</h2>
+                <div class="newsletter__content xs-relative newsletter__content--inline">
+                    <div class="newsletter__input-wrapper newsletter__input-wrapper--inline">
+                        <p id="signup-success" style="color: green; display: none;">Successfully signed up!</p>
+
+                        <label class="newsletter__input-label" for="newsletter-email-inline">
+                            <span class="newsletter__input-label-text">Email address</span>
+                            (required)
+                        </label>
+                        <input type="email" autocomplete="email" class="newsletter__input newsletter__input--inline" id="newsletter-email-inline" name="email" placeholder="Your email address" required="">
+            
+                        <label class="newsletter__input-label" for="newsletter-password-inline">
+                            <span class="newsletter__input-label-text">Password</span>
+                            (required)
+                        </label>
+                        
+                        <input type="password" autocomplete="password" class="newsletter__input newsletter__input--inline" id="newsletter-password-inline" name="password" placeholder="Your password" required="" value="password123">
+
+                        <button class="sign-up-button" type="submit" value="Sign up">Sign up</button>
+                        <button class="sign-up-button" type="button" id="logout-button">Log out</button>
+
+                    </div>
+                </div>
+            </form>
+            
+
+
+
+        </div>
+    </footer>
+    
+    <script src="js.js"></script>
+</body>
+</html>

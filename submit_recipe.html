@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Recipe</title>
+    <link rel="stylesheet" href="newcss.css">
+</head>
+<body class="flex flex-column">
+
+    <header class="nav">
+        <nav class="nav-menu">
+            <div class="logo-container">
+                <a class="logo" href="cleaned_main.html" > <img src="../images/logo_tasty.png" alt="Tasty Logo" height="10%" width="10%"></a>
+            </div>
+            
+            <ul class="nav__primary-menu list-unstyled">
+                <li class="nav__primary-menu-item list-unstyled">
+                    <button class="nav__primary-menu-button button--clear" onclick="toggleSubmenu()" value="">
+                        <span class="nav__primary-menu-button-text">Recipes</span>
+                        
+                    </button>
+
+                    <button class="nav__primary-menu-button button--clear" value="">
+                        <a class="nav__submenu-item" href="own_recipe.html">Your own recipes</a>
+                    </button>
+
+                    
+                    <div id="recipes-submenu" class="nav__desktop-submenu">
+                        <div class="nav__desktop-submenu-content">
+                            <div class="nav__submenu-close-button--wrapper xs-flex-order-2">
+                                <button aria-label="Close submenu" class="nav__submenu-close-button" onclick="toggleSubmenu()">
+                                    
+                                    <span class="screenreader-only">Close</span>
+                                </button>
+                            </div>
+                            <h2 id="recipes-heading" class="screenreader-only">Recipes Submenu</h2>
+                            <section class="nav__submenu-category-wrapper">
+                                <div class="submenu-column">
+                                    <h4 class="nav__submenu-category-heading">Popular</h4>
+                                    <ul class="nav__submenu-category">
+                                        <li class="list-unstyled">
+                                            <a class="nav__submenu-item" href="easy_dinners.html">Easy Dinners</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="submenu-column">
+                                    <h4 class="nav__submenu-category-heading">Do you want to Submit Your Recipe?</h4>
+                                    <ul class="nav__submenu-category">
+                                        <li class="list-unstyled">
+                                            <a class="nav__submenu-item" href="submit_recipe.html">Submit</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </section>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="menu-search">
+                <form class="search-form" id="search-form">
+                    <label for="search-input" class="screenreader-only">Search for recipes</label>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search Tasty">
+                    <button class="clear-search" type="button"></button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <main class="content-container">
+        <section class="featured-recipe">
+            <h2>Submit Your Recipe</h2>
+
+            <form  class="recipe-form" id="submit-recipe-form" action="http://localhost:3000/submit-recipe" method="POST" enctype="multipart/form-data">
+                <label for="recipeName">Recipe Name:</label>
+                <input type="text" id="recipe-name" name="recipeName" required>
+                <br>
+                <label for="ingredients">Ingredients:</label>
+                <textarea id="ingredients" name="ingredients" ></textarea> 
+                <br>
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" >
+                <br>
+                <label for="steps">Steps:</label>
+                <input type="text" id="steps" name="steps" >
+                <br>
+                <label for="image">Recipe Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" >
+                <br>
+                <button type="submit">Submit Recipe</button>
+            </form>
+
+
+
+
+
+
+        </section>
+    </main>
+    <script>
+        document.getElementById('submit-recipe-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const userEmail = localStorage.getItem('userEmail');
+            if (!userEmail) {
+                alert('You must be logged in to submit a recipe');
+                return;
+            }
+    
+            const recipeName = document.getElementById('recipe-name').value;
+            const ingredients = document.getElementById('ingredients').value;
+            const description = document.getElementById('description').value;
+            const steps = document.getElementById('steps').value;
+            const imageInput = document.getElementById('image');
+            const imageFile = imageInput.files[0]; 
+    
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result; 
+    
+                const recipes = JSON.parse(localStorage.getItem('userRecipes')) || {};
+    
+                if (!recipes[userEmail]) {
+                    recipes[userEmail] = [];
+                }
+                recipes[userEmail].push({
+                    recipeName, ingredients, description, steps, image: imageUrl
+                });
+    
+                localStorage.setItem('userRecipes', JSON.stringify(recipes));
+    
+                alert('Recipe submitted successfully!');
+                window.location.href = 'own_recipe.html'; 
+            };
+    
+            if (imageFile) {
+                reader.readAsDataURL(imageFile);
+            } else {
+                alert('Please upload an image.');
+            }
+        });
+    
+    </script>
+</body>
+</html>

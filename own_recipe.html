@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The official home of all things Tasty, the world’s largest food network. Search, watch, and cook every single Tasty recipe and video ever - all in one place!">
+    <link rel="stylesheet" href="newcss.css">
+    <title>Tasty - Food videos and recipes</title>
+</head>
+<body class="flex flex-column">
+
+
+    <header class="nav">
+        <nav class="nav-menu">
+            <div class="logo-container">
+                <a class="logo" href="cleaned_main.html" > <img src="../images/logo_tasty.png" alt="Tasty Logo" height="10%" width="10%"></a>
+            </div>
+            
+            <ul class="nav__primary-menu list-unstyled">
+                <li class="nav__primary-menu-item list-unstyled">
+                    <button class="nav__primary-menu-button button--clear" onclick="toggleSubmenu()" value="">
+                        <span class="nav__primary-menu-button-text">Recipes</span>
+                        
+                    </button>
+
+                    <button class="nav__primary-menu-button button--clear" value="">
+                        <a class="nav__submenu-item" href="own_recipe.html">Your own recipes</a>
+                    </button>
+
+                    
+                    <div id="recipes-submenu" class="nav__desktop-submenu">
+                        <div class="nav__desktop-submenu-content">
+                            <div class="nav__submenu-close-button--wrapper xs-flex-order-2">
+                                <button aria-label="Close submenu" class="nav__submenu-close-button" onclick="toggleSubmenu()">
+                                    
+                                    <span class="screenreader-only">Close</span>
+                                </button>
+                            </div>
+                            <h2 id="recipes-heading" class="screenreader-only">Recipes Submenu</h2>
+                            <section class="nav__submenu-category-wrapper">
+                                <div class="submenu-column">
+                                    <h4 class="nav__submenu-category-heading">Popular</h4>
+                                    <ul class="nav__submenu-category">
+                                        <li class="list-unstyled">
+                                            <a class="nav__submenu-item" href="easy_dinners.html">Easy Dinners</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="submenu-column">
+                                    <h4 class="nav__submenu-category-heading">Do you want to Submit Your Recipe?</h4>
+                                    <ul class="nav__submenu-category">
+                                        <li class="list-unstyled">
+                                            <a class="nav__submenu-item" href="submit_recipe.html">Submit</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </section>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="menu-search">
+                <form class="search-form" id="search-form">
+                    <label for="search-input" class="screenreader-only">Search for recipes</label>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search Tasty">
+                    <button class="clear-search" type="button"></button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+
+    
+    
+
+
+    <div id="visit-counter" style="margin-top: 20px;">
+        <h2>Your Visit Count</h2>
+        <p id="visit-count"></p>
+    </div>
+    
+    <h2>Your Recipes</h2>
+    <div id="recipe-list"></div>
+
+
+<script>
+        const visitKey = 'visitCount';
+        let visits = localStorage.getItem(visitKey) || 0;
+        visits++;
+        localStorage.setItem(visitKey, visits);
+        document.getElementById('visit-count').textContent = `You have visited this page ${visits} times.`;
+    
+        window.addEventListener('DOMContentLoaded', () => {
+            const userEmail = localStorage.getItem('userEmail');
+            const recipes = JSON.parse(localStorage.getItem('userRecipes')) || {};
+            const userRecipes = recipes[userEmail] || [];
+            const recipeListDiv = document.getElementById('recipe-list');
+    
+            if (userRecipes.length === 0) {
+                const noRecipesMessage = document.createElement('p');
+                noRecipesMessage.textContent = 'No recipes found.';
+                recipeListDiv.appendChild(noRecipesMessage);
+                return;
+            }
+    
+            function renderRecipes() {
+                recipeListDiv.innerHTML = '';
+    
+                userRecipes.forEach((recipe, index) => {
+                    const recipeDiv = document.createElement('div');
+                    recipeDiv.classList.add('recipe');
+    
+                    const recipeName = document.createElement('h3');
+                    recipeName.textContent = recipe.recipeName;
+    
+                    const ingredientsP = document.createElement('p');
+                    ingredientsP.innerHTML = `<strong>Ingredients:</strong> ${recipe.ingredients}`;
+    
+                    const descriptionP = document.createElement('p');
+                    descriptionP.innerHTML = `<strong>Description:</strong> ${recipe.description}`;
+    
+                    const stepsP = document.createElement('p');
+                    stepsP.innerHTML = `<strong>Steps:</strong> ${recipe.steps}`;
+    
+                    const recipeImage = document.createElement('img');
+                    recipeImage.src = recipe.image;
+                    recipeImage.alt = `${recipe.recipeName} photo`;
+                    recipeImage.height = 200;
+                    recipeImage.width = 200;
+    
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', () => deleteRecipe(index));
+    
+                    recipeDiv.appendChild(recipeName);
+                    recipeDiv.appendChild(ingredientsP);
+                    recipeDiv.appendChild(descriptionP);
+                    recipeDiv.appendChild(stepsP);
+                    recipeDiv.appendChild(recipeImage);
+                    recipeDiv.appendChild(deleteButton);
+    
+                    const hr = document.createElement('hr');
+                    recipeDiv.appendChild(hr);
+    
+                    recipeListDiv.appendChild(recipeDiv);
+                });
+            }
+    
+            function deleteRecipe(index) {
+                userRecipes.splice(index, 1);
+                recipes[userEmail] = userRecipes;
+                localStorage.setItem('userRecipes', JSON.stringify(recipes));
+                renderRecipes();
+            }
+    
+            renderRecipes();
+        });
+    </script>
+    
+
+</body>
+</html>
